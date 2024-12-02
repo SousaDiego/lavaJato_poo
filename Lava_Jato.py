@@ -24,7 +24,7 @@ class Cliente:
     def __init__(self, nome, telefone):
         self.nome = nome
         self.telefone = telefone
-        self.veiculos = []  # Lista para armazenar veículos associados
+        self.veiculos = []  
 
     def adicionar_veiculo(self, veiculo):
         self.veiculos.append(veiculo)
@@ -46,7 +46,6 @@ class Cliente:
         return informacoes
 
 
-# Listas para armazenar clientes e veículos
 clientes = []
 veiculos = []
 
@@ -133,5 +132,4 @@ def menu():
             print("Opção inválida!")
 
 
-# Executar o sistema
 menu()
