@@ -91,6 +91,55 @@ def associar_cliente(veiculo):
         print("Opção inválida!")
 
 
+def deletar_cliente():
+    if not clientes:
+        print("Nenhum cliente cadastrado.")
+        return
+
+    nome = input("Nome do cliente que deseja deletar: ").strip().lower()
+    cliente_encontrado = None
+
+
+    for cliente in clientes:
+        if cliente.nome.lower() == nome:
+            cliente_encontrado = cliente
+            break
+
+    if cliente_encontrado:
+       
+        clientes.remove(cliente_encontrado)
+        for veiculo in cliente_encontrado.veiculos:
+            veiculos.remove(veiculo)
+        print(f"Cliente '{cliente_encontrado.nome}' e seus veículos foram deletados.")
+    else:
+        print("Cliente não encontrado.")
+
+
+
+def deletar_veiculo():
+    listar_veiculos()
+    if not veiculos:
+        return
+
+    placa = input("Placa do veículo que deseja deletar: ")
+    veiculo_encontrado = None
+
+    for veiculo in veiculos:
+        if veiculo.placa == placa:
+            veiculo_encontrado = veiculo
+            break
+
+    if veiculo_encontrado:
+        veiculos.remove(veiculo_encontrado)
+        
+        for cliente in clientes:
+            cliente.remover_veiculo(placa)
+
+        print(f"Veículo com placa {placa} foi deletado.")
+    else:
+        print("Veículo não encontrado.")
+
+
 def listar_clientes():
     if not clientes:
         print("Nenhum cliente cadastrado.")
@@ -114,7 +163,9 @@ def menu():
         print("2. Cadastrar Veículo")
         print("3. Listar Clientes")
         print("4. Listar Veículos")
-        print("5. Sair")
+        print("5. Deletar Cliente")
+        print("6. Deletar Veículo")
+        print("7. Sair")
 
         escolha = input("Escolha uma opção: ")
         if escolha == "1":
@@ -126,6 +177,10 @@ def menu():
         elif escolha == "4":
             listar_veiculos()
         elif escolha == "5":
+            deletar_cliente()
+        elif escolha == "6":
+            deletar_veiculo()
+        elif escolha == "7":
             print("Saindo do sistema...")
             break
         else:
